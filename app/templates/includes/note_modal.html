@@ -1,0 +1,149 @@
+<div
+  class="modal fade"
+  id="editNoteModal"
+  tabindex="-1"
+  aria-labelledby="editNoteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editNoteModalLabel">Note</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="">
+          <div class="image-container">
+            <img id="modal-image" width="100%" />
+            <form
+              action="{{url_for('main.remove_img_from_note')}}"
+              method="get"
+              id="remove_img_from_note_form"
+            >
+              <input type="hidden" id="modal-note-id" name="noteId" />
+
+              <button type="submit">
+                <i class="fa fa-trash remove-note-img" title="Remove Image"></i>
+              </button>
+            </form>
+          </div>
+          <form
+            action="{{url_for('main.edit_note')}}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <input
+              type="text"
+              id="modal-title"
+              class="form-control no-border-input mt-2"
+              name="note_title"
+              required
+            />
+            <textarea
+              id="modal-text"
+              name="note_content"
+              class="form-control no-border-input mt 3"
+              required
+              rows="5"
+            ></textarea>
+            <input type="hidden" id="modal-id" name="note_id" required />
+
+            <div class="icons-for-settings-card">
+              <div class="add-task-input-data-icons-box">
+                <ul class="filter-with-dropdown-menu-box">
+                  <li>
+                    <ul
+                      class="navbar-nav m-auto mb-2 mb-lg-0 search-bar-filter-icon-box"
+                    >
+                      <li class="nav-item dropdown">
+                        <a
+                          class="nav-link dropdown-toggle"
+                          href="#"
+                          id="navbarDropdown"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          title="Add Or Remove Category From Note"
+                        >
+                          <img
+                            class="img-fluid filter-img-box"
+                            src="/static/images/three-dot-icon.png"
+                          />
+                        </a>
+                        <ul
+                          class="dropdown-menu"
+                          aria-labelledby="navbarDropdown"
+                        >
+                          <li style="cursor: pointer">
+                            <a class="dropdown-item"
+                              ><input
+                                type="radio"
+                                value="no_category"
+                                name="note_category_id"
+                              />
+                              <span style="margin-left: 5px">
+                                No Category
+                              </span>
+                            </a>
+                          </li>
+                          {% for category in context['categories'] %}
+                          <li style="cursor: pointer">
+                            <a class="dropdown-item"
+                              ><input
+                                type="radio"
+                                value="{{category.id}}"
+                                name="note_category_id"
+                              />
+                              <span style="margin-left: 5px">
+                                {{category.title}}
+                              </span>
+                            </a>
+                          </li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="upload-field-customized">
+                      <input
+                        type="file"
+                        name="note_image"
+                        id="note-image"
+                        title="Add Image to note"
+                      />
+                      <span>
+                        <img
+                          class="img-fluid filter-img-box"
+                          src="/static/images/gallery-icon.png"
+                          alt=""
+                        />
+                      </span>
+                    </div>
+                  </li>
+
+                  <li
+                    class="categories-name-box-in-card"
+                    id="modal-category"
+                  ></li>
+                </ul>
+                <ul>
+                  <li class="">
+                    <button type="submit" class="save-note-btn">Save</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+autopep8
+Bootstrap-Flask
+email-validator
+Flask
+Flask-Bcrypt
+Flask-Login
+Flask-Migrate
+Flask-SQLAlchemy
+Flask-WTF
+Jinja2
+Pillow
+python-dotenv
+requests

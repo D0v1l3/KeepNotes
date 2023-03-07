@@ -1,0 +1,129 @@
+<header>
+  <section class="top-navbar-section-box">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand logo-box" href="/">
+          <h4>Notes</h4>
+        </a>
+
+        {% if current_user.is_authenticated %}
+        <div
+          class="collapse navbar-collapse search-bar-box"
+          id="navbarSupportedContent"
+        >
+          <form class="d-flex">
+            <div class="img-fluid search-box-input-icon-box">
+              <img src="/static/images/search-img.png" />
+            </div>
+            <input
+              class="form-control me-2 search-bar-input"
+              type="search"
+              placeholder="type and hit Enter for search..."
+              aria-label="Search"
+              name="query"
+            />
+            <ul class="navbar-nav search-bar-filter-icon-box">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  title="Filter by Category"
+                >
+                  <img
+                    class="img-fluid filter-img-box"
+                    src="/static/images/filter-icon.png"
+                  />
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% for category in context['categories'] %}
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{{url_for('main.home')}}?category={{category.id}}"
+                    >
+                      {{category.title}}
+                    </a>
+                  </li>
+                  {% endfor %}
+
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="/"
+                      style="color: cornflowerblue"
+                    >
+                      Clear Filter</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </form>
+        </div>
+        {% endif %}
+        <div>
+          {% if current_user.is_authenticated %}
+          <button
+            class="btn btn-primary navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar-list-4"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar-list-4">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  {{current_user.name}}
+                </a>
+                <div
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <a class="dropdown-item" href="{{ url_for('users.logout') }}"
+                    >Log Out</a
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+          {% else %}
+          <div class="d-md-flex">
+            <a
+              href="{{url_for('users.login')}}"
+              class="login-btn"
+              style="text-decoration: none"
+            >
+              <div class="btn-text">Login</div>
+            </a>
+            <a
+              href="{{url_for('users.register')}}"
+              class="login-btn"
+              style="text-decoration: none"
+            >
+              <div class="btn-text">Register</div>
+            </a>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+  </section>
+</header>

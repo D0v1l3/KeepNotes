@@ -1,0 +1,128 @@
+<div class="all-categories">
+  <h5>Category</h5>
+  <a
+    data-bs-toggle="modal"
+    style="cursor: pointer"
+    data-bs-target="#addCategoryModal"
+    href="javascript:void()"
+  >
+    <i class="fa fa-plus"></i>Add Category
+  </a>
+  <ul>
+    {% for category in context['categories'] %}
+    <li>
+      {{category.title}}
+      <div class="edit-and-delete-btn-categories">
+        <a href="javascript:void()">
+          <i
+            class="fa fa-edit"
+            data-bs-toggle="modal"
+            data-bs-target="#editCategoryModal"
+            data-category="{{category.title}}"
+            data-id="{{category.id}}"
+          ></i>
+        </a>
+        <a href="{{url_for('main.delete_category')}}?query={{category.id}}">
+          <i class="fa fa-trash" style="color: red"></i>
+        </a>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div
+  class="modal fade"
+  id="addCategoryModal"
+  tabindex="-1"
+  aria-labelledby="addCategoryModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('main.add_category')}}" method="post">
+          <input
+            class="form-control"
+            name="category_title"
+            required
+            placeholder="Enter category title here"
+          />
+          <div class="icons-for-settings-card">
+            <div class="add-task-input-data-icons-box">
+              <ul></ul>
+              <ul class="mt-2">
+                <li>
+                  <button type="submit" class="save-note-btn">Save</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="editCategoryModal"
+  tabindex="-1"
+  aria-labelledby="editCategoryModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('main.edit_category')}}" method="post">
+          <input
+            class="form-control"
+            type="text"
+            id="modal-category-title"
+            name="edited_category_title"
+            required
+          />
+          <input
+            class="form-control"
+            type="hidden"
+            id="modalCategoryId"
+            name="edited_category_id"
+          />
+
+          <div class="icons-for-settings-card">
+            <div class="add-task-input-data-icons-box">
+              <ul></ul>
+              <ul class="mt-2">
+                <li>
+                  <button type="submit" class="save-note-btn">Save</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

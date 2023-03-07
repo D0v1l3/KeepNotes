@@ -1,0 +1,61 @@
+{% from 'bootstrap4/utils.html' import render_messages, render_static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{% block description %}{% endblock %}" />
+
+    {% block title %}
+    <title>Notes</title>
+
+    {% endblock %} {{render_static('css', 'css/bootstrap.min.css') }}
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100;0,200;0,300;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="canonical" href="/" />
+
+    {{render_static('css', 'css/notes.css') }}
+    <style>
+      .rendor-message-content .alert.alert-primary.alert-dismissible {
+        text-align: center;
+        width: 769px;
+        max-width: 100%;
+        margin: 40px auto 0px;
+      }
+    </style>
+  </head>
+  <body>
+    {% if request.path == '/users/login' or request.path == '/users/register' %}
+    {% include 'header.html' %} {% endif %}
+    <main class="page-body-main-container">
+      <div class="rendor-message-content">
+        {{ render_messages(dismissible=True) }}
+      </div>
+      {% block content %} {% endblock %}
+      <div class="loading">
+        <div class="uil-ring-css" style="transform: scale(0.79)">
+          <div></div>
+        </div>
+      </div>
+    </main>
+
+    {{render_static('js', 'js/jquery.min.js') }} {{render_static('js',
+    'js/bootstrap.min.js') }}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block script %} {% endblock %}
+  </body>
+</html>

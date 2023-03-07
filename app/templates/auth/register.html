@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% from 'bootstrap4/form.html' import render_form %}
+{% block content %}
+<section class="inner-section login-sign-pge">
+  <div class="container">
+    <div class="inner-sgn-lgn">
+      <h1>Register</h1>
+      {{ render_form(form) }}
+      <br />
+      <span class="d-block text-center"
+        >Already have an account?
+        <a href="{{ url_for('users.login') }}">Log In</a>.</span
+      >
+    </div>
+  </div>
+</section>
+
+{% endblock %}

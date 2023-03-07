@@ -1,0 +1,154 @@
+{% extends 'base.html' %} {% block content %} {% if
+current_user.is_authenticated %} {% include 'includes/search_header.html' %} {%
+include 'includes/add_note.html' %}
+<section class="add-data-box-section">
+  <div class="container card-data-box-container">
+    <div class="row card-data-box-row">
+      {% if context['notes'] %} {% for note in context['notes'] %}
+      <div class="col-md-4 card-data-box-col-3">
+        <div
+          data-bs-toggle="modal"
+          data-bs-target="#editNoteModal"
+          style="cursor: pointer"
+          data-title="{{note.title}}"
+          data-text="{{note.content}}"
+          data-image="{{note.image}}"
+          data-id="{{note.id}}"
+          data-category="{{note.category.title}}"
+          data-categoryId="{{note.category.id}}"
+        >
+          {% if note.image %}
+          <img
+            src="/static/notes/{{note.image}}"
+            style="width: 100%"
+            class="img-fluid"
+          />
+          {% endif %}
+
+          <h5>{{note.title}}</h5>
+          <p>{{note.content | truncate(150) }}</p>
+        </div>
+        <div class="icons-for-settings-card">
+          <div class="add-task-input-data-icons-box">
+            <ul class="filter-with-dropdown-menu-box">
+              <li>
+                <ul
+                  class="navbar-nav m-auto mb-2 mb-lg-0 search-bar-filter-icon-box"
+                >
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        class="img-fluid filter-img-box"
+                        src="/static/images/three-dot-icon.png"
+                      />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          data-bs-toggle="modal"
+                          data-bs-target="#editNoteModal"
+                          style="cursor: pointer"
+                          data-title="{{note.title}}"
+                          data-text="{{note.content}}"
+                          data-image="{{note.image}}"
+                          data-id="{{note.id}}"
+                          data-category="{{note.category.title}}"
+                          data-categoryId="{{note.category.id}}"
+                          >Edit</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          href="{{ url_for('main.delete_note')}}?query={{note.id}}"
+                          >Delete</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              {% if note.category.title %}
+              <li class="categories-name-box-in-card">
+                {{ note.category.title}}
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h6
+        style="
+          position: absolute;
+          top: 40%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >
+        No result found
+      </h6>
+      {% endif %}
+    </div>
+    {% include 'includes/categories.html' %}
+  </div>
+</section>
+
+{% else %}
+<div class="container text-center">
+  <h2
+    style="
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    "
+  >
+    <a href="/users/login">Login</a> To Manage Notes
+  </h2>
+</div>
+{% endif %} {% include 'includes/note_modal.html' %} {% endblock %} {% block
+script %}
+<script>
+  $("#editNoteModal").on("show.bs.modal", function (event) {
+    let button = $(event.relatedTarget); // Button that triggered the modal
+    let title = button.data("title"); // Extract info from data-* attributes
+    let text = button.data("text");
+    let image_path = button.data("image");
+    let categoryTitle = button.data("category");
+    let id = button.data("id");
+    let modal = $(this);
+    if (image_path && image_path !== "" && image_path !== "None") {
+      modal.find("#modal-image").attr("src", `/static/notes/${image_path}`);
+      modal.find("#remove_img_from_note_form").show();
+    } else {
+      modal.find("#modal-image").attr("src", "");
+      modal.find("#remove_img_from_note_form").hide();
+    }
+    modal.find("#modal-title").val(title);
+    modal.find("#modal-text").val(text);
+    modal.find("#modal-id").val(id);
+    modal.find("#modal-note-id").val(id);
+    modal.find("#modal-category").text(categoryTitle);
+    modal.find("#modal-categoryId").text(button.data("categoryId"));
+  });
+
+  $("#editCategoryModal").on("show.bs.modal", function (event) {
+    let button = $(event.relatedTarget);
+    let cateTitle = button.data("category");
+    let cateId = button.data("id");
+    let modal = $(this);
+    modal.find("#modal-category-title").val(cateTitle);
+    modal.find("#modalCategoryId").val(cateId);
+  });
+</script>
+{% endblock %}

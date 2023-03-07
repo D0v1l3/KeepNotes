@@ -1,0 +1,112 @@
+<section class="add-task-input-data-box-section">
+  <div class="container add-task-input-data-box-container">
+    <div class="row add-task-input-data-box-row">
+      <div class="col-md-6 m-auto add-task-input-data-box-col">
+        <form
+          action="{{ url_for('main.add_note') }}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="add-task-input-data-title-box">
+            <input
+              type="text"
+              required
+              placeholder="Title...."
+              class="form-control"
+              id="exampleInputtitle"
+              aria-describedby="titleHelp"
+              name="note_title"
+            />
+          </div>
+          <div class="add-task-input-data-note-box">
+            <textarea
+              required
+              placeholder="Take a Note...."
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="1"
+              name="note_content"
+            ></textarea>
+          </div>
+          <div class="add-task-input-data-icons-box">
+            <ul class="filter-with-dropdown-menu-box">
+              <li>
+                <ul
+                  class="navbar-nav m-auto mb-2 mb-lg-0 search-bar-filter-icon-box"
+                >
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        class="img-fluid filter-img-box"
+                        src="/static/images/three-dot-icon.png"
+                        title="Add Category to Note"
+                      />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a class="dropdown-item"><h6>Select category</h6> </a>
+                      </li>
+                      {% for category in context['categories'] %}
+
+                      <li style="cursor: pointer">
+                        <a class="dropdown-item">
+                          <input
+                            type="radio"
+                            value="{{category.id}}"
+                            name="note_category"
+                          />
+                          <span style="margin-left: 5px">
+                            {{category.title}}
+                          </span>
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="upload-field-customized">
+                  <input
+                    type="file"
+                    name="note_image"
+                    id="file_upload"
+                    title="Add Image to note"
+                  />
+                  <span>
+                    <img
+                      class="img-fluid filter-img-box"
+                      src="/static/images/gallery-icon.png"
+                      alt=""
+                    />
+                  </span>
+                </div>
+              </li>
+            </ul>
+            <ul class="button-save-and-exit">
+              <li>
+                <a
+                  ><button
+                    title="Save This Note"
+                    class="save-note-btn"
+                    type="submit"
+                  >
+                    Save
+                  </button></a
+                >
+              </li>
+              <li title="Clear Add Note Form"><a href="/">Clear </a></li>
+            </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
