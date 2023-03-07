@@ -1,5 +1,4 @@
 # Project Setup
-
 - Install Python3.10 or above on your system if not already installed.
 Venv For Windows:-
 - Create virtualenv: python -m venv venv
@@ -25,3 +24,9 @@ Visit: http://localhost:5000
 # Webapp Default Test User Login:
 email: test@gmail.com
 password: test@123
+
+
+──────▄▀▄─────▄▀▄
+─────▄█░░▀▀▀▀▀░░█▄
+─▄▄──█░░░░░░░░░░░█──▄▄
+█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█
